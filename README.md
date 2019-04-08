@@ -1,6 +1,6 @@
 # oanhnn/docker-gh-pages
 
-[![Software License](https://img.shields.io/github/license/oanhnn/docker-gh-pages.svg)](LICENSE)
+[![Software License](https://img.shields.io/github/license/oanhnn/docker-gh-pages.svg)](https://github.com/oanhnn/docker-gh-pages/blob/master/LICENSE)
 [![Build Status](https://img.shields.io/travis/oanhnn/docker-gh-pages/master.svg)](https://travis-ci.org/oanhnn/docker-gh-pages)
 [![Docker Build Method](https://img.shields.io/docker/automated/oanhnn/gh-pages.svg)](https://hub.docker.com/r/oanhnn/gh-pages)
 [![Docker Build Status](https://img.shields.io/docker/build/oanhnn/gh-pages.svg)](https://hub.docker.com/r/oanhnn/gh-pages)
@@ -25,7 +25,7 @@ Image Tag    | Base Image           | Badges
 ## Usage
 
 ```bash
-$ docker run --rm -it -v $(pwd):/site oanhnn/gh-pages
+$ docker run --rm -it -p 4000:4000 -v $(pwd):/site oanhnn/gh-pages
 ```
 
 Now, you can build your source code
