@@ -12,4 +12,4 @@ EXPOSE 4000
 WORKDIR /site
 VOLUME /site
 
-CMD ["bundle", "exec", "jekyll", "serve -H 0.0.0.0 -P 4000"]
+CMD ["bundle", "exec", "jekyll", "serve", "-H", "0.0.0.0", "-P", "4000"]
