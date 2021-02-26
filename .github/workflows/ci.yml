@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  # Build the nightly version at at 8:20 AM UTC
+  schedule:
+    - cron: "20 8 * * *"
+
+  # For all pushes to the main branch run the tests and push the image to the
+  # GitHub Container Registry under an edge tag
+  push:
+    branches:
+      - master
+
+  # For all PRs to the main branch run the tests
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    name: Build and test
+    runs-on: ubuntu-20.04
+    env:
+      DOCKER_IMAGE: oanhnn/gh-pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setting up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-buildx-
+
+      - name: Build test
+        id: docker_test
+        uses: docker/build-push-action@v2
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          context: .
+          file: ./Dockerfile
+          pull: true
+          load: true
+          tags: ${{ env.DOCKER_IMAGE }}:test
+
+      - name: Run with docker
+        run: |
+          docker-compose up -d
+          sleep 15s
+          curl --silent --show-error --fail http://127.0.0.1:4000/
+          docker-compose down
+        working-directory: ./.github/ci-test

@@ -1,0 +1,52 @@
+# General Jekyll Config
+title:                Test site
+baseurl:              ""                                      # the subpath of your site, e.g. /blog
+url:                  "http://localhost:4000"                 # the base hostname & protocol for your site
+timezone:             UTC
+encoding:             utf-8
+locale:               en_US
+
+# Build settings
+permalink:            /:year-:month-:day/:title.html
+
+#paginate:             5
+#paginate_path:        "/page:num/"
+
+safe:                 false
+lsi:                  false
+source:               .
+destination:          _site
+layouts_dir:          _layouts
+data_dir:             _data
+include:              [.htaccess]
+
+keep_files:           []
+
+show_drafts:          false
+future:               true
+unpublished:          false
+markdown:             kramdown
+markdown_ext:         "md"
+excerpt_separator:    "<!--more-->"
+highlighter:          rouge
+
+kramdown:
+  input:              GFM
+  hard_wrap:          false
+  auto_ids:           true
+  footnote_nr:        1
+  entity_output:      as_char
+  toc_levels:         1..6
+  smart_quotes:       lsquo,rsquo,ldquo,rdquo
+  enable_coderay:     false
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      css_class:      highlight
+      line_numbers:   true
+      start_line:     1
+      wrap:           true
+
+sass:
+  sass_dir:           _sass
+  style:              :compressed
